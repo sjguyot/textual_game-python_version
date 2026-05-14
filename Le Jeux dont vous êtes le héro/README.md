@@ -1,4 +1,4 @@
-# LeChat - Guide YAML
+# Guide YAML
 
 Ce guide explique comment encoder une aventure en YAML pour le moteur.
 
@@ -133,3 +133,7 @@ Compare possible:
 - Utiliser des numeros: 1..400
 - Verifier que chaque `goto`, `success`, `failure` pointe vers un numero existant.
 - Eviter les doublons d'id.
+
+## Autre possibilité
+
+Il existe un code qui aide à la création d'aventures: https://github.com/sjguyot/textual-game-helper-tools-adventure.
