@@ -141,3 +141,4 @@ Compare values:
 ## Other option
 
 There is a tool to help create adventures here: https://github.com/sjguyot/textual-game-helper-tools-adventure.
+Or the web version directly at https://sjguyot.github.io/textual-game-helper-tools-adventure/.
