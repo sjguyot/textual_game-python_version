@@ -1,0 +1,91 @@
+title: Demo Adventure
+window:
+  width: 900
+  height: 600
+# background: assets/background.png
+
+stats:
+  endurance: 20
+  habilete: 10
+  chance: 10
+
+inventory:
+  - corde
+  - torche
+
+flags: {}
+
+start: 1
+
+nodes:
+  1:
+    text: |
+      Vous êtes au campement. La nuit tombe.
+      Un sentier descend vers la foret.
+    choices:
+      - text: Descendre le sentier
+        goto: 2
+      - text: Tester votre chance
+        check:
+          stat: chance
+          consume_stat: true
+          dice:
+            count: 2
+            sides: 6
+          compare: lte
+          success: 3
+          failure: 4
+
+  2:
+    text: |
+      Le sentier est glissant. Vous perdez un point d'endurance.
+    effects:
+      - change_stat:
+          stat: endurance
+          delta: -1
+    choices:
+      - text: Continuer dans la foret
+        goto: 5
+      - text: Revenir au camp
+        goto: 1
+
+  3:
+    text: |
+      La chance vous sourit. Vous trouvez une dague.
+    effects:
+      - add_item: dague
+    choices:
+      - text: Revenir au camp
+        goto: 1
+
+  4:
+    text: |
+      Malchance. Vous tombez et perdez 2 endurance.
+    effects:
+      - change_stat:
+          stat: endurance
+          delta: -2
+    choices:
+      - text: Revenir au camp
+        goto: 1
+
+  5:
+    text: |
+      Un loup surgit. Si vous avez une dague, vous pouvez l'effrayer.
+    choices:
+      - text: Brandir la dague
+        conditions:
+          - has_item: dague
+        goto: 6
+      - text: Fuir
+        goto: 7
+
+  6:
+    text: |
+      Le loup s'enfuit. Vous etes sauf.
+    choices: []
+
+  7:
+    text: |
+      Vous vous perdez dans la nuit. Fin de l'aventure.
+    choices: []
