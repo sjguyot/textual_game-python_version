@@ -1,4 +1,4 @@
-# LeChat - YAML Guide
+# YAML Guide
 
 This guide explains how to encode an adventure in YAML for the engine.
 
