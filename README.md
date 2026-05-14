@@ -1,6 +1,6 @@
-# YAML Guide
+# Textual Game
 
-This guide explains how to encode an adventure in YAML for the engine.
+This project is a Python engine for "choose your own adventure" stories. You write adventures in YAML and run them with a simple Tkinter UI.
 
 ## Run the game
 
@@ -8,7 +8,11 @@ This guide explains how to encode an adventure in YAML for the engine.
 python3.14 game.py adventures/demo.yml
 ```
 
-## General structure
+## YAML Guide
+
+This guide explains how to encode an adventure in YAML for the engine.
+
+### General structure
 
 ```yaml
 title: "Adventure title"
@@ -39,7 +43,7 @@ nodes:
         goto: 2
 ```
 
-## Nodes (paragraphs)
+### Nodes (paragraphs)
 
 Each paragraph is a numeric key inside `nodes`.
 Available fields:
@@ -67,7 +71,7 @@ nodes:
         goto: 7
 ```
 
-## Simple choices
+### Simple choices
 
 ```yaml
 choices:
@@ -75,7 +79,7 @@ choices:
     goto: 5
 ```
 
-## Choices with conditions
+### Choices with conditions
 
 ```yaml
 choices:
@@ -91,7 +95,7 @@ Possible conditions:
 - `stat_at_most: { stat: chance, value: 5 }`
 - `flag_true: keyFound`
 
-## Possible effects
+### Possible effects
 
 ```yaml
 effects:
@@ -108,7 +112,7 @@ effects:
       value: true
 ```
 
-## Luck test / stat test
+### Luck test / stat test
 
 ```yaml
 choices:
@@ -128,7 +132,7 @@ Compare values:
 - `lte`: success if roll <= stat
 - `gte`: success if roll >= stat
 
-## Tips for 400 paragraphs
+### Tips for 400 paragraphs
 
 - Use numbers: 1..400
 - Verify each `goto`, `success`, `failure` points to an existing number.
