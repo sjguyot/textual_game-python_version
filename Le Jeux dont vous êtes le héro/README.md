@@ -133,3 +133,7 @@ Compare values:
 - Use numbers: 1..400
 - Verify each `goto`, `success`, `failure` points to an existing number.
 - Avoid duplicate IDs.
+
+## Other option
+
+There is a tool to help create adventures here: https://github.com/sjguyot/textual-game-helper-tools-adventure.
