@@ -1,21 +1,21 @@
-# Guide YAML
+# LeChat - YAML Guide
 
-Ce guide explique comment encoder une aventure en YAML pour le moteur.
+This guide explains how to encode an adventure in YAML for the engine.
 
-## Lancer le jeu
+## Run the game
 
 ```bash
 python3.14 game.py adventures/demo.yml
 ```
 
-## Structure generale
+## General structure
 
 ```yaml
-title: "Titre de l'aventure"
+title: "Adventure title"
 window:
   width: 900
   height: 600
-# background: assets/fond.png   # optionnel, PNG seulement
+# background: assets/background.png   # optional, PNG only
 
 stats:
   endurance: 20
@@ -23,8 +23,8 @@ stats:
   chance: 10
 
 inventory:
-  - corde
-  - torche
+  - rope
+  - torch
 
 flags: {}
 
@@ -33,65 +33,65 @@ start: 1
 nodes:
   1:
     text: |
-      Texte du paragraphe 1.
+      Paragraph 1 text.
     choices:
-      - text: Aller au paragraphe 2
+      - text: Go to paragraph 2
         goto: 2
 ```
 
-## Noeuds (paragraphes)
+## Nodes (paragraphs)
 
-Chaque paragraphe est une cle numerique dans `nodes`.
-Champs possibles:
-- `text`: texte du paragraphe (utiliser `|` pour plusieurs lignes)
-- `image`: chemin PNG relatif (optionnel)
-- `effects`: effets appliques en entrant dans le paragraphe
-- `choices`: liste de choix (si vide => fin)
+Each paragraph is a numeric key inside `nodes`.
+Available fields:
+- `text`: paragraph text (use `|` for multiple lines)
+- `image`: relative PNG path (optional)
+- `effects`: effects applied when entering the paragraph
+- `choices`: list of choices (empty => end)
 
-Exemple:
+Example:
 
 ```yaml
 nodes:
   12:
     text: |
-      Vous entrez dans la grotte. Il fait froid.
-    image: assets/grotte.png
+      You enter the cave. It is cold.
+    image: assets/cave.png
     effects:
       - change_stat:
           stat: endurance
           delta: -1
     choices:
-      - text: Continuer
+      - text: Continue
         goto: 13
-      - text: Fuir
+      - text: Run away
         goto: 7
 ```
 
-## Choix simples
+## Simple choices
 
 ```yaml
 choices:
-  - text: Aller au paragraphe 5
+  - text: Go to paragraph 5
     goto: 5
 ```
 
-## Choix avec conditions
+## Choices with conditions
 
 ```yaml
 choices:
-  - text: Brandir la dague
+  - text: Brandish the dagger
     conditions:
-      - has_item: dague
+      - has_item: dagger
     goto: 22
 ```
 
-Conditions possibles:
-- `has_item: dague`
+Possible conditions:
+- `has_item: dagger`
 - `stat_at_least: { stat: endurance, value: 12 }`
 - `stat_at_most: { stat: chance, value: 5 }`
-- `flag_true: cleTrouvee`
+- `flag_true: keyFound`
 
-## Effets possibles
+## Possible effects
 
 ```yaml
 effects:
@@ -101,39 +101,35 @@ effects:
   - set_stat:
       stat: chance
       value: 8
-  - add_item: dague
-  - remove_item: corde
+  - add_item: dagger
+  - remove_item: rope
   - set_flag:
-      flag: cleTrouvee
+      flag: keyFound
       value: true
 ```
 
-## Test de chance / test de stat
+## Luck test / stat test
 
 ```yaml
 choices:
-  - text: Tester votre chance
+  - text: Test your luck
     check:
       stat: chance
       dice:
         count: 2
         sides: 6
-      compare: lte        # lte = reussite si jet <= stat
-      consume_stat: true  # optionnel: baisse la stat de 1 apres le test
+      compare: lte        # lte = success if roll <= stat
+      consume_stat: true  # optional: lower stat by 1 after test
       success: 30
       failure: 18
 ```
 
-Compare possible:
-- `lte`: reussite si jet <= stat
-- `gte`: reussite si jet >= stat
+Compare values:
+- `lte`: success if roll <= stat
+- `gte`: success if roll >= stat
 
-## Conseils pour 400 paragraphes
+## Tips for 400 paragraphs
 
-- Utiliser des numeros: 1..400
-- Verifier que chaque `goto`, `success`, `failure` pointe vers un numero existant.
-- Eviter les doublons d'id.
-
-## Autre possibilité
-
-Il existe un code qui aide à la création d'aventures: https://github.com/sjguyot/textual-game-helper-tools-adventure.
+- Use numbers: 1..400
+- Verify each `goto`, `success`, `failure` points to an existing number.
+- Avoid duplicate IDs.
